@@ -10,6 +10,7 @@ const Button: React.FC<ButtonProps> = props => {
 		disabled: btnType === 'link' && disabled
 	});
 	if (btnType === 'link' && href) {
+		// eslint-disable-next-line no-script-url
 		const linkHref = disabled ? 'javascript:void(0)' : href;
 		return (
 			<a className={classes} {...other} href={linkHref}>
