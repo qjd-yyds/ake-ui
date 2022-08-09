@@ -11,9 +11,14 @@ const Button: React.FC<ButtonProps> = props => {
 	});
 	if (btnType === 'link' && href) {
 		// eslint-disable-next-line no-script-url
-		const linkHref = disabled ? 'javascript:void(0)' : href;
+		if (disabled)
+			return (
+				<span className={classes} {...other}>
+					{children}
+				</span>
+			);
 		return (
-			<a className={classes} {...other} href={linkHref}>
+			<a className={classes} {...other} href={href}>
 				{children}
 			</a>
 		);
