@@ -3,11 +3,11 @@ import { CSSProperties, FC, ReactNode, useState } from 'react';
 import { createContext } from 'react';
 import { AKE_PREFIX } from '../constants';
 export type SelectCallback = (selectIndex: number | string) => void;
-export type MueuMode = 'vertical' | 'horizontal';
-export type MueuProps = {
+export type MenuMode = 'vertical' | 'horizontal';
+export type MenuProps = {
 	defaultIndex?: number | string;
 	className?: string;
-	mode?: MueuMode;
+	mode?: MenuMode;
 	style?: CSSProperties;
 	onSelect?: SelectCallback;
 	children?: ReactNode;
@@ -17,7 +17,7 @@ export type MenuContextProps = {
 	index?: number | string;
 };
 export const MenuContext = createContext<MenuContextProps>({ index: 0 });
-const Menu: FC<MueuProps> = props => {
+const Menu: FC<MenuProps> = props => {
 	const prefix = AKE_PREFIX;
 	const { defaultIndex, className, mode, style, onSelect, children } = props;
 	const [currentActive, setCurrentActive] = useState(defaultIndex);
@@ -34,7 +34,7 @@ const Menu: FC<MueuProps> = props => {
 		}
 	};
 	return (
-		<ul className={classes} style={style}>
+		<ul className={classes} style={style} data-testid="test-menu">
 			<MenuContext.Provider value={passContext}>{children}</MenuContext.Provider>
 		</ul>
 	);
