@@ -1,14 +1,8 @@
 import classNames from 'classnames';
-import { FC, ReactNode, CSSProperties, useContext } from 'react';
+import { FC, useContext } from 'react';
 import { AKE_PREFIX } from '../constants';
 import { MenuContext } from './menu';
-export type MueuItemProps = {
-	index: number | string;
-	disabled?: boolean;
-	className?: string;
-	style?: CSSProperties;
-	children?: ReactNode;
-};
+import type { MueuItemProps } from './type';
 
 const MenuItem: FC<MueuItemProps> = props => {
 	const context = useContext(MenuContext);
@@ -20,7 +14,7 @@ const MenuItem: FC<MueuItemProps> = props => {
 	});
 	const handleClick = () => {
 		if (!disabled && context.onSelect) {
-			context.onSelect(index);
+			context.onSelect(index!);
 		}
 	};
 	return (
@@ -29,5 +23,5 @@ const MenuItem: FC<MueuItemProps> = props => {
 		</li>
 	);
 };
-
+MenuItem.displayName = 'MenuItem';
 export default MenuItem;

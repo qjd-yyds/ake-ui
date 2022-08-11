@@ -1,6 +1,7 @@
 import Button from './components/Button/button';
 import Menu from './components/Menu/menu';
 import MenuItem from './components/Menu/menuItem';
+import SubMenu from './components/Menu/subMenu';
 
 function App() {
 	return (
@@ -33,29 +34,31 @@ function App() {
 			<h4>menu组件</h4>
 			<Menu
 				onSelect={index => {
-					console.log(index);
+					alert(index);
 				}}
 			>
-				<MenuItem disabled index={1}>
+				<MenuItem disabled index="a">
 					1
 				</MenuItem>
-				<MenuItem index={2}>2</MenuItem>
-				<MenuItem index={3}>3</MenuItem>
-				<MenuItem index={4}>4</MenuItem>
+				<MenuItem index="b">2</MenuItem>
+				<SubMenu title="大家好">
+					<MenuItem>3</MenuItem>
+					<MenuItem>4</MenuItem>
+				</SubMenu>
 			</Menu>
 			<hr />
 			<Menu
 				mode="vertical"
 				onSelect={index => {
-					console.log(index);
+					alert(index);
 				}}
 			>
-				<MenuItem disabled index={1}>
-					1
-				</MenuItem>
-				<MenuItem index={2}>2</MenuItem>
-				<MenuItem index={3}>3</MenuItem>
-				<MenuItem index={4}>4</MenuItem>
+				<MenuItem disabled>1</MenuItem>
+				<MenuItem>2</MenuItem>
+				<SubMenu title="大家好">
+					<MenuItem>3</MenuItem>
+					<MenuItem>4</MenuItem>
+				</SubMenu>
 			</Menu>
 		</div>
 	);
