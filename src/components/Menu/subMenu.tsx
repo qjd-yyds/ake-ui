@@ -4,6 +4,7 @@ import {MenuContext} from './menu';
 import classNames from 'classnames';
 import {AKE_PREFIX} from '../constants';
 import Icon from "../Icon/components/icon";
+import Transition from '../Transition/transition'
 
 const SubMenu: React.FC<SubMenuProps> = ({title, children, index}) => {
     const prefix = AKE_PREFIX;
@@ -41,7 +42,8 @@ const SubMenu: React.FC<SubMenuProps> = ({title, children, index}) => {
             : {};
     const classes = classNames(`${prefix}-menu-item submenu-item`, {
         'is-active': context.index === index,
-        "is-vertical": context.mode === "vertical"
+        "is-vertical": context.mode === "vertical",
+        'menu-open': menuOpen,
     });
     const renderChildren = () => {
         const subMenuClasses = classNames(`${prefix}-submenu`, {
@@ -59,7 +61,13 @@ const SubMenu: React.FC<SubMenuProps> = ({title, children, index}) => {
                 console.error('warning: SubMenu has a child which is not a MenuItem component');
             }
         });
-        return <ul className={subMenuClasses}>{childrenComponents}</ul>;
+        return <Transition
+            in={menuOpen}
+            timeout={300}
+            animation="zoom-in-top"
+        >
+            <ul className={subMenuClasses}>{childrenComponents}</ul>
+        </Transition>;
     };
     return (
         <li key={index} className={classes} {...hoverEvent}>
