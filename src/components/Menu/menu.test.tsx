@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+
 import Menu from './menu';
 import type { MenuProps } from './type';
 import MenuItem from './menuItem';
@@ -24,18 +25,19 @@ describe('测试menu组件', () => {
 	// 每个case都执行
 	beforeEach(() => {});
 	it('测试默认props', () => {
-		render(<GenerateMenu {...testProps}></GenerateMenu>);
+		render(<GenerateMenu {...testProps}/>);
 		const menuElement = screen.getByTestId('test-menu');
 		const activeElement = screen.getByText('active');
 		const disabledElement = screen.getByText('disabled');
 		expect(menuElement).toBeInTheDocument();
 		expect(menuElement).toHaveClass('test ake-menu');
+		// eslint-disable-next-line testing-library/no-node-access
 		expect(menuElement.getElementsByTagName('li').length).toEqual(3);
 		expect(activeElement).toHaveClass('ake-menu-item is-active');
 		expect(disabledElement).toHaveClass('ake-menu-item is-disabled');
 	});
 	it('测试点击是否会选中', () => {
-		render(<GenerateMenu {...testProps}></GenerateMenu>);
+		render(<GenerateMenu {...testProps}/>);
 		const activeElement = screen.getByText('active');
 		const disabledElement = screen.getByText('disabled');
 		const thirdItem = screen.getByText('haha');

@@ -160,13 +160,13 @@ module.exports = function (webpackEnv) {
 		].filter(Boolean);
 		if (preProcessor) {
 			loaders.push(
-				{
-					loader: require.resolve('resolve-url-loader'),
-					options: {
-						sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
-						root: paths.appSrc
-					}
-				},
+				// {
+				// 	loader: require.resolve('resolve-url-loader'),
+				// 	options: {
+				// 		sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
+				// 		root: paths.appSrc
+				// 	}
+				// },
 				{
 					loader: require.resolve(preProcessor),
 					options: {
@@ -512,11 +512,8 @@ module.exports = function (webpackEnv) {
 							exclude: lessModuleRegex,
 							use: getStyleLoaders(
 								{
-									importLoaders: 3,
-									sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
-									modules: {
-										mode: 'icss'
-									}
+									importLoaders: 2,
+									sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment
 								},
 								'less-loader'
 							),
