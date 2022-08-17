@@ -3,7 +3,7 @@ import type {SubMenuProps, MueuItemProps} from './type';
 import {MenuContext} from './menu';
 import classNames from 'classnames';
 import {AKE_PREFIX} from '../constants';
-import Icon from "../Icon/components/icon";
+import Icon from "../Icon/icon";
 import Transition from '../Transition/transition'
 
 const SubMenu: React.FC<SubMenuProps> = ({title, children, index}) => {
