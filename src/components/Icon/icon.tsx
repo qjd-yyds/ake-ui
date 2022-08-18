@@ -6,8 +6,11 @@ import type {IconProps} from './type'
 const Icon: React.FC<IconProps> = (props) => {
     const {className, theme, ...restProps} = props
     const classes = classNames("ake-icon", className, {
-        [`icon-${theme}`]: theme
+        [`icon-${theme}`]: !!theme
     })
     return <FontAwesomeIcon className={classes} {...restProps}/>
+}
+Icon.defaultProps = {
+    theme: "primary"
 }
 export default Icon;

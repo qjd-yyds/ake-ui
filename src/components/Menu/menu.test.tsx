@@ -50,7 +50,7 @@ describe('测试menu组件', () => {
 		expect(testProps.onSelect).not.toBeCalledWith(1);
 	});
 	it('测试横向和纵向', () => {
-		render(<GenerateMenu {...verProps}></GenerateMenu>);
+		render(<GenerateMenu {...verProps}/>);
 		const menuElement = screen.getByTestId('test-menu');
 		expect(menuElement).toHaveClass('ake-menu-vertical ake-menu');
 	});
