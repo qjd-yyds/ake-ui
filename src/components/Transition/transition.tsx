@@ -13,6 +13,6 @@ const Transition: React.FC<TransitionProps> = (props) => {
 }
 Transition.defaultProps = {
     unmountOnExit: true,
-    wrapper: true
+    wrapper: true,
 }
 export default Transition

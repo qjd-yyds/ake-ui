@@ -1,11 +1,12 @@
 import MenuExample from "./components/Menu/example"
 import ButtonExample from "./components/Button/example"
 import TransitionExample from "./components/Transition/example"
+import AutoCompleteExample from "./components/AutoComplete/example"
 import InputExample from "./components/Input/example"
 function App() {
     return (
         <div className="App">
-            <InputExample/>
+            <AutoCompleteExample/>
             {/*<ButtonExample/>*/}
             {/*<hr/>*/}
             {/*<MenuExample/>*/}
