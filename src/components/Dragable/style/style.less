@@ -1,0 +1,28 @@
+@draggable-prefix-cls: ~'@{ake-prefix}-draggable';
+.@{draggable-prefix-cls}-wrapper {
+  overflow: hidden;
+  margin: 100px auto;
+  padding: 10px 0;
+  background: #fff;
+  border-radius: 5px;
+
+  .@{draggable-prefix-cls}-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0;
+    position: relative;
+  }
+
+  .@{draggable-prefix-cls}-item {
+    position: absolute;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+  }
+}
+.draggingItem {
+  transform: scale(1.2);
+  opacity: 0.5;
+}
