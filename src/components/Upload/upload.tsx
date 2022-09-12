@@ -12,30 +12,22 @@ import {ChangeEvent, FC, useRef, useState} from "react";
 import Button from "../Button/button";
 import axios from "axios";
 import {isPromise} from "../../utils/utils";
+import type {UploadProps, UploadFile} from './uploadProps'
+import UploadList from "./uploadList";
 
-export type UploadFileStatus = "success" | "ready" | "uploading" | "error"
-export type UploadFile = {
-    uid: string;
-    size: number;
-    name: string;
-    status?: UploadFileStatus;
-    percent?: number;
-    raw?: File;
-    response?: any;
-    error?: any
-}
-export type UploadProps = {
-    action: string;
-    onProgress?: (percentage: number, file: File) => void;
-    onSuccess?: (data: any, file: File) => void;
-    onError?: (err: any, file: File) => void
-    beforeUpload?: (file: File) => boolean | Promise<File> | void
-    onChange?: (file: File) => void
-}
 const Upload: FC<UploadProps> = (props) => {
-    const {action, onProgress, onSuccess, onError, beforeUpload, onChange} = props
+    const {
+        action,
+        defaultFileList,
+        onRemove,
+        onProgress,
+        onSuccess,
+        onError,
+        beforeUpload,
+        onChange
+    } = props
     const fileInput = useRef<HTMLInputElement>(null)
-    const [fileList, setFileList] = useState<UploadFile[]>([])
+    const [fileList, setFileList] = useState<UploadFile[]>(defaultFileList || [])
     const uploadFiles = (files: FileList) => {
         const postFiles = Array.from(files)
         postFiles.forEach(file => {
@@ -122,6 +114,12 @@ const Upload: FC<UploadProps> = (props) => {
             fileInput.current.value = ""
         }
     }
+    const handleRemove = (file: UploadFile) => {
+        setFileList(prev => {
+            return prev.filter(item => item.uid !== file.uid)
+        })
+        onRemove?.(file)
+    }
     return <div className="ake-upload-component">
         <Button btnType={"primary"} onClick={handleClick}>点击上传</Button>
         <input
@@ -131,6 +129,7 @@ const Upload: FC<UploadProps> = (props) => {
             style={{display: "none"}}
             onChange={handleFileChange}
         />
+        <UploadList fileList={fileList} onRemove={handleRemove}/>
     </div>
 }
 
