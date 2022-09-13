@@ -14,17 +14,26 @@ import axios from "axios";
 import {isPromise} from "../../utils/utils";
 import type {UploadProps, UploadFile} from './uploadProps'
 import UploadList from "./uploadList";
+import Dragger from "./dragger";
 
 const Upload: FC<UploadProps> = (props) => {
     const {
         action,
         defaultFileList,
+        children,
+        drag,
         onRemove,
         onProgress,
         onSuccess,
         onError,
         beforeUpload,
-        onChange
+        onChange,
+        name,
+        data,
+        headers,
+        withCredentials,
+        accept,
+        multiple
     } = props
     const fileInput = useRef<HTMLInputElement>(null)
     const [fileList, setFileList] = useState<UploadFile[]>(defaultFileList || [])
@@ -45,7 +54,6 @@ const Upload: FC<UploadProps> = (props) => {
     }
     const uploadFileList = (uploadFile: UploadFile, updateObj: Partial<UploadFile>) => {
         setFileList((prevList) => {
-            console.log(prevList)
             return prevList.map(file => {
                 if (file.uid === uploadFile.uid) {
                     return {
@@ -66,13 +74,23 @@ const Upload: FC<UploadProps> = (props) => {
             raw: file,
             name: file.name
         }
-        setFileList([...fileList, _file])
+        setFileList(prev => {
+            return [...prev, _file]
+        })
         const formData = new FormData()
-        formData.append(file.name, file)
+        formData.append(name || "file", file)
+        // 自定义属性
+        if (data) {
+            Object.keys(data).forEach(key => {
+                formData.append(key, data[key])
+            })
+        }
         axios.post(action, formData, {
             headers: {
+                ...headers,
                 "Content-Type": "multipart/form-data"
             },
+            withCredentials,
             onUploadProgress: (e) => {
                 let percent = Math.round(e.loaded / e.total * 100) || 0
 
@@ -121,16 +139,35 @@ const Upload: FC<UploadProps> = (props) => {
         onRemove?.(file)
     }
     return <div className="ake-upload-component">
-        <Button btnType={"primary"} onClick={handleClick}>点击上传</Button>
-        <input
+        <div
             className={"ake-upload-input"}
+            style={{display: "inline-block"}}
+            onClick={handleClick}
+        >
+            {
+                drag ?
+                    <Dragger
+                        onFile={uploadFiles}
+                    >
+                        {children}
+                    </Dragger>
+                    :
+                    children
+            }
+        </div>
+        <input
+            className={"ake-file-input"}
             ref={fileInput}
             type={"file"}
             style={{display: "none"}}
             onChange={handleFileChange}
+            multiple={multiple}
+            accept={accept}
         />
         <UploadList fileList={fileList} onRemove={handleRemove}/>
     </div>
 }
-
+Upload.defaultProps = {
+    name: "file"
+}
 export default Upload

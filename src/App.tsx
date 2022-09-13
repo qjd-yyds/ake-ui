@@ -3,10 +3,9 @@
 // import TransitionExample from "./components/Transition/example"
 // import AutoCompleteExample from "./components/AutoComplete/example"
 // import InputExample from "./components/Input/example"
-// import Draggable from "./components/Dragable/draggable";
 import Upload from './components/Upload/upload'
 import type {UploadFile} from "./components/Upload/uploadProps";
-import UploadList from "./components/Upload/uploadList";
+import Icon from "./components/Icon/icon";
 
 const defaultList: UploadFile[] = [
     {
@@ -43,7 +42,6 @@ const filePromise = async (file: File) => {
     const newFile = new File([file], "newJop", {
         type: file.type
     })
-    console.log(newFile, "====")
     return Promise.resolve(newFile)
 }
 
@@ -60,7 +58,12 @@ function App() {
             {/*<TransitionExample/>*/}
             {/*<Draggable />*/}
             <Upload
+                drag
+                multiple={true}
                 defaultFileList={defaultList}
+                headers={{
+                    haha: 12312
+                }}
                 action={"https://jsonplaceholder.typicode.com/photos"}
                 onError={(err, file) => {
                     console.log(err, file, "===error")
@@ -72,7 +75,11 @@ function App() {
                     console.log(data, file, "success")
                 }}
                 beforeUpload={filePromise}
-            />
+            >
+                <Icon icon={"upload"} size="5x" theme={"secondary"}/>
+                <br/>
+                <p>将文件拖拽至实现上传</p>
+            </Upload>
         </div>
     );
 }

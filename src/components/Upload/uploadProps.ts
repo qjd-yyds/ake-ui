@@ -1,3 +1,5 @@
+import type {ReactNode} from "react";
+
 export type UploadFileStatus = "success" | "ready" | "uploading" | "error"
 export type UploadFile = {
     uid: string;
@@ -17,7 +19,15 @@ export type UploadProps = {
     onError?: (err: any, file: File) => void;
     beforeUpload?: (file: File) => boolean | Promise<File> | void;
     onChange?: (file: File) => void;
-    onRemove?: (file: UploadFile) => void
+    onRemove?: (file: UploadFile) => void;
+    name?: string;
+    headers?: Record<string, any>;
+    data?: Record<string, any>;
+    withCredentials?: boolean;
+    accept?: string;
+    multiple?: boolean;
+    drag?: boolean;
+    children?: ReactNode;
 }
 export type UploadListProps = {
     fileList: UploadFile[];
