@@ -120,7 +120,12 @@ const AutoComplete: React.FC<AutoCompleteProps> = (props) => {
     }
 
     return <div className="ake-auto-complete" ref={componentRef}>
-        <Input value={inputValue} onKeyDown={handleKeyDown} onChange={handleChange} {...restProps}/>
+        <Input
+            value={inputValue}
+            onKeyDown={handleKeyDown}
+            onChange={handleChange}
+            {...restProps}
+        />
 
         {generateDropDown()}
     </div>
